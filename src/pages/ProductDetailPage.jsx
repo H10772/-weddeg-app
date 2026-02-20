@@ -6,7 +6,7 @@ import ProductGallery from '../components/product/ProductGallery';
 import ProductCarousel from '../components/product/ProductCarousel';
 import CartBar from '../components/cart/CartBar';
 import { useCart } from '../context/CartContext';
-import { getProductById, products } from '../data/products';
+import { supabase } from '../lib/supabase';
 import './ProductDetailPage.css';
 
 /**
@@ -15,22 +15,97 @@ import './ProductDetailPage.css';
  */
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const product = getProductById(id);
+  const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState('');
   const { addToCart } = useCart();
   
-  // Save to recently viewed
+  // Fetch product from Supabase
   useEffect(() => {
-    if (product) {
-      const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-      const filtered = recent.filter(pid => pid !== id);
-      const updated = [id, ...filtered].slice(0, 10); // Keep last 10
-      localStorage.setItem('recentlyViewed', JSON.stringify(updated));
-    }
-  }, [id, product]);
+    fetchProduct();
+    fetchRelatedProducts();
+  }, [id]);
   
-  // Get related products (exclude current product)
-  const relatedProducts = products.filter(p => p.id !== id).slice(0, 6);
+  const fetchProduct = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select(`
+          *,
+          categories (
+            id,
+            name
+          )
+        `)
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        // Transform data to match expected format
+        const transformedProduct = {
+          id: data.id,
+          name: data.name,
+          price: data.price,
+          description: data.description || 'No description available',
+          category: data.categories?.name || 'Uncategorized',
+          images: data.images && data.images.length > 0 
+            ? data.images 
+            : ['/img/placeholder.jpg'],
+          inStock: true,
+          currency: 'EGP',
+          sizes: ['S', 'M', 'L', 'XL'] // Default sizes, can be fetched from sizes table if needed
+        };
+        setProduct(transformedProduct);
+        
+        // Save to recently viewed
+        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        const filtered = recent.filter(pid => pid !== id);
+        const updated = [id, ...filtered].slice(0, 10);
+        localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+      }
+    } catch (error) {
+      console.error('Error fetching product:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRelatedProducts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select(`
+          *,
+          categories (
+            id,
+            name
+          )
+        `)
+        .neq('id', id)
+        .limit(6);
+
+      if (error) throw error;
+
+      const transformedProducts = data.map(product => ({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        category: product.categories?.name || 'Uncategorized',
+        images: product.images && product.images.length > 0 
+          ? product.images 
+          : ['/img/placeholder.jpg'],
+        inStock: true
+      }));
+
+      setRelatedProducts(transformedProducts);
+    } catch (error) {
+      console.error('Error fetching related products:', error);
+    }
+  };
   
   // Collapsible sections state
   const [openSections, setOpenSections] = useState({
@@ -51,6 +126,19 @@ const ProductDetailPage = () => {
   const handleAddToCart = () => {
     addToCart(product);
   };
+
+  // Handle loading state
+  if (loading) {
+    return (
+      <Layout>
+        <Container className="product-detail-page">
+          <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+            <p>Loading product...</p>
+          </div>
+        </Container>
+      </Layout>
+    );
+  }
 
   // Handle product not found
   if (!product) {
