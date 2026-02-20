@@ -1,0 +1,214 @@
+/* EssentialsSection Styles */
+.essentials-section {
+  position: relative;
+  background-color: #f5f5f5;
+  padding: 3rem 0;
+  overflow: hidden;
+}
+
+/* Horizontal Scroll Wrapper */
+.essentials-scroll-wrapper {
+  width: 100%;
+  height: 500px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.essentials-scroll-wrapper:active {
+  cursor: grabbing;
+}
+
+/* Hide scrollbar completely */
+.essentials-scroll-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Scroll Track - contains text and all images */
+.essentials-scroll-track {
+  display: flex;
+  height: 100%;
+  width: max-content;
+  gap: 20px; /* Space between all items */
+  padding: 0 4rem;
+}
+
+/* Text Content - same size as images */
+.essentials-content {
+  min-width: 500px;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+.essentials-text {
+  max-width: 100%;
+}
+
+.essentials-title {
+  font-size: 3rem;
+  font-weight: 300;
+  color: #333333;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.1;
+  font-style: italic;
+}
+
+.brand-name {
+  font-weight: 600;
+  color: #000000;
+}
+
+.essentials-description {
+  font-size: 1.3rem;
+  color: #333333;
+  line-height: 1.4;
+  margin: 0 0 2rem 0;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.shop-now-btn {
+  background-color: transparent;
+  color: #333333;
+  border: 2px solid #333333;
+  padding: 0.875rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Image Slides - same size as text content */
+.image-slide {
+  min-width: 500px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.essential-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .essentials-scroll-wrapper {
+    height: 450px;
+  }
+  
+  .essentials-scroll-track {
+    gap: 18px;
+    padding: 0 3rem;
+  }
+  
+  .essentials-content {
+    min-width: 450px;
+    padding: 2rem;
+  }
+  
+  .essentials-title {
+    font-size: 2.5rem;
+  }
+  
+  .essentials-description {
+    font-size: 1.2rem;
+  }
+  
+  .image-slide {
+    min-width: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .essentials-section {
+    padding: 2rem 0;
+  }
+  
+  .essentials-scroll-wrapper {
+    height: 380px;
+  }
+  
+  .essentials-scroll-track {
+    gap: 15px;
+    padding: 0 2rem;
+  }
+  
+  .essentials-content {
+    min-width: 380px;
+    padding: 1.8rem;
+  }
+  
+  .image-slide {
+    min-width: 380px;
+  }
+  
+  .essentials-title {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .essentials-description {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .shop-now-btn {
+    padding: 0.75rem 1.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .essentials-scroll-wrapper {
+    height: 320px;
+  }
+  
+  .essentials-scroll-track {
+    gap: 12px;
+    padding: 0 1rem;
+  }
+  
+  .essentials-content {
+    min-width: 300px;
+    padding: 1.5rem;
+  }
+  
+  .image-slide {
+    min-width: 300px;
+  }
+  
+  .essentials-title {
+    font-size: 1.8rem;
+  }
+  
+  .essentials-description {
+    font-size: 1rem;
+  }
+  
+  .shop-now-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}

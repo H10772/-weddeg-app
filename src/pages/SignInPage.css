@@ -1,0 +1,216 @@
+/* SignInPage Styles */
+.signin-page {
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.signin-container {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+/* Back Button */
+.signin-back-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.signin-back-btn:hover {
+  color: #333333;
+}
+
+/* Logo */
+.signin-logo {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.signin-logo h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/* Header */
+.signin-header {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.signin-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #333333;
+  margin: 0 0 0.5rem 0;
+}
+
+.signin-subtitle {
+  font-size: 1rem;
+  color: #999999;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Continue with Shop Button */
+.continue-shop-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #6B5CE7 0%, #5B4FD8 100%);
+  color: #ffffff;
+  border: none;
+  padding: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.continue-shop-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(107, 92, 231, 0.3);
+}
+
+/* Divider */
+.signin-divider {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+  color: #999999;
+  font-size: 0.95rem;
+}
+
+.signin-divider::before,
+.signin-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #e0e0e0;
+}
+
+.signin-divider span {
+  padding: 0 1rem;
+}
+
+/* Email Form */
+.signin-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.email-input {
+  width: 100%;
+  padding: 1.1rem 1.2rem;
+  font-size: 1rem;
+  border: 2px solid #2196F3;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.email-input::placeholder {
+  color: #999999;
+}
+
+.email-input:focus {
+  border-color: #1976D2;
+}
+
+/* Continue Button */
+.continue-btn {
+  width: 100%;
+  background-color: #2196F3;
+  color: #ffffff;
+  border: none;
+  padding: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.continue-btn:hover {
+  background-color: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.continue-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .signin-page {
+    padding: 1rem;
+  }
+  
+  .signin-container {
+    padding: 2.5rem 2rem;
+  }
+  
+  .signin-logo h1 {
+    font-size: 2.2rem;
+  }
+  
+  .signin-title {
+    font-size: 1.75rem;
+  }
+  
+  .signin-subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .signin-logo h1 {
+    font-size: 2rem;
+  }
+  
+  .signin-title {
+    font-size: 1.5rem;
+  }
+  
+  .continue-shop-btn,
+  .continue-btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .email-input {
+    padding: 1rem;
+  }
+}

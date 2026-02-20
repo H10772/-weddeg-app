@@ -1,0 +1,266 @@
+/* OrderSuccessPage Styles */
+.order-success-page {
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 2rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.order-success-page .container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.success-content {
+  background-color: #ffffff;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Success Icon */
+.success-icon {
+  margin-bottom: 2rem;
+}
+
+.success-icon i {
+  font-size: 4rem;
+  color: #28a745;
+}
+
+/* Title */
+.success-content h1 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 2rem;
+}
+
+/* Order Details */
+.order-details {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.order-number,
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.order-total {
+  margin-bottom: 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.order-details .label {
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.order-details .value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* Success Message */
+.success-message {
+  margin-bottom: 2.5rem;
+}
+
+.success-message p {
+  color: #666666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.success-message p:last-child {
+  margin-bottom: 0;
+}
+
+/* Next Steps */
+.next-steps {
+  text-align: right;
+  margin-bottom: 2.5rem;
+}
+
+.next-steps h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.next-steps ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.next-steps li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  color: #666666;
+  font-size: 0.9rem;
+}
+
+.next-steps li i {
+  color: #28a745;
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.continue-shopping-btn,
+.track-order-btn {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.continue-shopping-btn {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+}
+
+.continue-shopping-btn:hover {
+  background-color: #333333;
+}
+
+.track-order-btn {
+  background-color: transparent;
+  color: #333333;
+  border: 1px solid #e0e0e0;
+}
+
+.track-order-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #cccccc;
+}
+
+/* Contact Info */
+.contact-info {
+  padding-top: 2rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.contact-info p {
+  color: #666666;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.contact-methods {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  background-color: #f8f9fa;
+  border-color: #cccccc;
+  color: #333333;
+}
+
+.contact-link i {
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .order-success-page {
+    padding: 1rem 0;
+  }
+  
+  .success-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .success-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .success-icon i {
+    font-size: 3rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .contact-methods {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-link {
+    width: 100%;
+    justify-content: center;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .success-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .order-details {
+    padding: 1rem;
+  }
+  
+  .order-number,
+  .order-total {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+  }
+  
+  .next-steps {
+    text-align: center;
+  }
+  
+  .next-steps li {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,95 @@
+/* MeetWedSection Styles */
+.meet-wed-section {
+  background-color: #e8e4dc;
+  padding: 5rem 2rem;
+}
+
+.meet-wed-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.meet-wed-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333333;
+  letter-spacing: 2px;
+  margin: 0 0 2rem 0;
+  text-transform: uppercase;
+}
+
+.meet-wed-title {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #333333;
+  margin: 0 0 2.5rem 0;
+  line-height: 1.2;
+}
+
+.heart-icon {
+  display: inline-block;
+  font-size: 2.8rem;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}
+
+.meet-wed-description {
+  font-size: 1.3rem;
+  color: #333333;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.meet-wed-description:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .meet-wed-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .meet-wed-label {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .meet-wed-title {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .heart-icon {
+    font-size: 2rem;
+  }
+  
+  .meet-wed-description {
+    font-size: 1.15rem;
+    margin-bottom: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .meet-wed-section {
+    padding: 3rem 1rem;
+  }
+  
+  .meet-wed-label {
+    font-size: 0.8rem;
+  }
+  
+  .meet-wed-title {
+    font-size: 1.8rem;
+  }
+  
+  .heart-icon {
+    font-size: 1.7rem;
+  }
+  
+  .meet-wed-description {
+    font-size: 1.05rem;
+  }
+}

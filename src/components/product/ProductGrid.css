@@ -1,0 +1,19 @@
+/* ProductGrid Styles */
+.product-grid-container {
+  padding: 2rem 0;
+}
+
+.product-grid-col {
+  display: flex;
+}
+
+/* Ensure cards fill the column height */
+.product-grid-col .product-card {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .product-grid-container {
+    padding: 1rem 0;
+  }
+}
