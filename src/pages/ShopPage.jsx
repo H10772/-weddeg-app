@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Layout from '../components/layout/Layout';
 import ProductCard from '../components/product/ProductCard';
 import { supabase } from '../lib/supabase';
+import { products as staticProducts } from '../data/products';
 import './ShopPage.css';
 
 /**
@@ -32,7 +33,7 @@ const ShopPage = () => {
 
       if (error) throw error;
 
-      // Transform Supabase data to match expected format
+      // Transform Supabase data
       const supabaseProducts = (data || []).map(product => ({
         id: product.id,
         name: product.name,
@@ -45,19 +46,13 @@ const ShopPage = () => {
         inStock: true
       }));
 
-      // Import static products
-      import('../data/products').then(module => {
-        const staticProducts = module.products || [];
-        // Combine static products with Supabase products
-        const allProducts = [...supabaseProducts, ...staticProducts];
-        setProducts(allProducts);
-      });
+      // Combine with static products
+      const allProducts = [...supabaseProducts, ...staticProducts];
+      setProducts(allProducts);
     } catch (error) {
       console.error('Error fetching products:', error);
-      // If Supabase fails, fallback to static products only
-      import('../data/products').then(module => {
-        setProducts(module.products || []);
-      });
+      // Fallback to static products
+      setProducts(staticProducts);
     } finally {
       setLoading(false);
     }

@@ -7,6 +7,7 @@ import ProductCarousel from '../components/product/ProductCarousel';
 import CartBar from '../components/cart/CartBar';
 import { useCart } from '../context/CartContext';
 import { supabase } from '../lib/supabase';
+import { getProductById as getStaticProductById, products as staticProducts } from '../data/products';
 import './ProductDetailPage.css';
 
 /**
@@ -29,7 +30,7 @@ const ProductDetailPage = () => {
   
   const fetchProduct = async () => {
     try {
-      // First try to fetch from Supabase
+      // First try Supabase
       const { data, error } = await supabase
         .from('products')
         .select(`
@@ -43,7 +44,7 @@ const ProductDetailPage = () => {
         .single();
 
       if (data && !error) {
-        // Transform Supabase data to match expected format
+        // Transform Supabase data
         const transformedProduct = {
           id: data.id,
           name: data.name,
@@ -58,36 +59,26 @@ const ProductDetailPage = () => {
           sizes: ['S', 'M', 'L', 'XL']
         };
         setProduct(transformedProduct);
-        
-        // Save to recently viewed
-        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-        const filtered = recent.filter(pid => pid !== id);
-        const updated = [id, ...filtered].slice(0, 10);
-        localStorage.setItem('recentlyViewed', JSON.stringify(updated));
       } else {
-        // If not found in Supabase, try static products
-        import('../data/products').then(module => {
-          const staticProduct = module.getProductById(id);
-          if (staticProduct) {
-            setProduct(staticProduct);
-            
-            // Save to recently viewed
-            const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-            const filtered = recent.filter(pid => pid !== id);
-            const updated = [id, ...filtered].slice(0, 10);
-            localStorage.setItem('recentlyViewed', JSON.stringify(updated));
-          }
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching product:', error);
-      // Fallback to static products
-      import('../data/products').then(module => {
-        const staticProduct = module.getProductById(id);
+        // Fallback to static products
+        const staticProduct = getStaticProductById(id);
         if (staticProduct) {
           setProduct(staticProduct);
         }
-      });
+      }
+      
+      // Save to recently viewed
+      const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+      const filtered = recent.filter(pid => pid !== id);
+      const updated = [id, ...filtered].slice(0, 10);
+      localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      // Fallback to static products
+      const staticProduct = getStaticProductById(id);
+      if (staticProduct) {
+        setProduct(staticProduct);
+      }
     } finally {
       setLoading(false);
     }
@@ -121,19 +112,15 @@ const ProductDetailPage = () => {
         inStock: true
       }));
 
-      // Import static products and combine
-      import('../data/products').then(module => {
-        const staticProducts = (module.products || []).filter(p => p.id !== id);
-        const allProducts = [...supabaseProducts, ...staticProducts].slice(0, 6);
-        setRelatedProducts(allProducts);
-      });
+      // Combine with static products
+      const filteredStaticProducts = staticProducts.filter(p => p.id !== id);
+      const allProducts = [...supabaseProducts, ...filteredStaticProducts].slice(0, 6);
+      setRelatedProducts(allProducts);
     } catch (error) {
       console.error('Error fetching related products:', error);
       // Fallback to static products
-      import('../data/products').then(module => {
-        const staticProducts = (module.products || []).filter(p => p.id !== id).slice(0, 6);
-        setRelatedProducts(staticProducts);
-      });
+      const filteredStaticProducts = staticProducts.filter(p => p.id !== id).slice(0, 6);
+      setRelatedProducts(filteredStaticProducts);
     }
   };
   

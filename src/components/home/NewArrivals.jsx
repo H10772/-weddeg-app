@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import ProductCarousel from '../product/ProductCarousel';
 import { supabase } from '../../lib/supabase';
+import { products as staticProducts } from '../../data/products';
 import './NewArrivals.css';
 
 /**
@@ -28,11 +29,11 @@ const NewArrivals = () => {
           )
         `)
         .order('created_at', { ascending: false })
-        .limit(8); // Get latest 8 products
+        .limit(8);
 
       if (error) throw error;
 
-      // Transform Supabase data to match expected format
+      // Transform Supabase data
       const supabaseProducts = (data || []).map(product => ({
         id: product.id,
         name: product.name,
@@ -45,20 +46,13 @@ const NewArrivals = () => {
         inStock: true
       }));
 
-      // Import static products
-      import('../data/products').then(module => {
-        const staticProducts = module.products || [];
-        // Combine and take first 8
-        const allProducts = [...supabaseProducts, ...staticProducts].slice(0, 8);
-        setProducts(allProducts);
-      });
+      // Combine with static products and take first 8
+      const allProducts = [...supabaseProducts, ...staticProducts].slice(0, 8);
+      setProducts(allProducts);
     } catch (error) {
       console.error('Error fetching new arrivals:', error);
-      // If Supabase fails, fallback to static products
-      import('../data/products').then(module => {
-        const staticProducts = module.products || [];
-        setProducts(staticProducts.slice(0, 8));
-      });
+      // Fallback to static products
+      setProducts(staticProducts.slice(0, 8));
     }
   };
 
