@@ -78,8 +78,8 @@
 /* Responsive */
 @media (max-width: 768px) {
   .hero-section {
-    height: 90vh;
-    min-height: 90vh;
+    height: 100vh;
+    min-height: 100vh;
   }
   
   .hero-cta {
@@ -89,6 +89,11 @@
 }
 
 @media (max-width: 480px) {
+  .hero-section {
+    height: 100vh;
+    min-height: 100vh;
+  }
+  
   .hero-cta {
     padding: 0.75rem 2rem;
     font-size: 0.85rem;
