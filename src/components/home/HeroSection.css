@@ -57,7 +57,7 @@
 .hero-cta {
   background-color: transparent;
   color: #ffffff;
-  border: 2px solid #ffffff;
+  border: none;
   padding: 1rem 3rem;
   font-size: 1rem;
   font-weight: 600;
@@ -69,10 +69,8 @@
 }
 
 .hero-cta:hover {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 /* Responsive */
