@@ -1,12 +1,13 @@
 /* HeroSection Styles */
 .hero-section {
   position: relative;
-  height: 90vh;
-  min-height: 600px;
+  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-top: 0;
 }
 
 /* Background Video */

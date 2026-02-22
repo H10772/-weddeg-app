@@ -11,6 +11,7 @@ import './Layout.css';
  */
 const Layout = ({ children }) => {
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   // Scroll to top on route change
   useEffect(() => {
@@ -20,7 +21,7 @@ const Layout = ({ children }) => {
   return (
     <div className="layout-wrapper">
       <Navbar />
-      <main className="main-content">
+      <main className={`main-content ${isHomePage ? 'home-page' : ''}`}>
         {children}
       </main>
       <Footer />

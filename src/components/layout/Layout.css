@@ -10,8 +10,17 @@
   padding-top: 80px; /* Account for fixed navbar */
 }
 
+/* Remove padding for home page to allow full-height hero */
+.main-content.home-page {
+  padding-top: 0;
+}
+
 @media (max-width: 768px) {
   .main-content {
     padding-top: 70px;
+  }
+  
+  .main-content.home-page {
+    padding-top: 0;
   }
 }

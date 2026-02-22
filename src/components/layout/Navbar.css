@@ -5,6 +5,10 @@
   padding: 1rem 0;
   z-index: 1000;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 /* Solid white background when scrolled */
