@@ -32,8 +32,8 @@ const NewArrivals = () => {
 
       if (error) throw error;
 
-      // Transform data to match the expected format
-      const transformedProducts = data.map(product => ({
+      // Transform Supabase data to match expected format
+      const supabaseProducts = (data || []).map(product => ({
         id: product.id,
         name: product.name,
         price: product.price,
@@ -45,9 +45,20 @@ const NewArrivals = () => {
         inStock: true
       }));
 
-      setProducts(transformedProducts);
+      // Import static products
+      import('../data/products').then(module => {
+        const staticProducts = module.products || [];
+        // Combine and take first 8
+        const allProducts = [...supabaseProducts, ...staticProducts].slice(0, 8);
+        setProducts(allProducts);
+      });
     } catch (error) {
       console.error('Error fetching new arrivals:', error);
+      // If Supabase fails, fallback to static products
+      import('../data/products').then(module => {
+        const staticProducts = module.products || [];
+        setProducts(staticProducts.slice(0, 8));
+      });
     }
   };
 

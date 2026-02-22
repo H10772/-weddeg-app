@@ -29,6 +29,7 @@ const ProductDetailPage = () => {
   
   const fetchProduct = async () => {
     try {
+      // First try to fetch from Supabase
       const { data, error } = await supabase
         .from('products')
         .select(`
@@ -41,10 +42,8 @@ const ProductDetailPage = () => {
         .eq('id', id)
         .single();
 
-      if (error) throw error;
-
-      if (data) {
-        // Transform data to match expected format
+      if (data && !error) {
+        // Transform Supabase data to match expected format
         const transformedProduct = {
           id: data.id,
           name: data.name,
@@ -56,7 +55,7 @@ const ProductDetailPage = () => {
             : ['/img/placeholder.jpg'],
           inStock: true,
           currency: 'EGP',
-          sizes: ['S', 'M', 'L', 'XL'] // Default sizes, can be fetched from sizes table if needed
+          sizes: ['S', 'M', 'L', 'XL']
         };
         setProduct(transformedProduct);
         
@@ -65,9 +64,30 @@ const ProductDetailPage = () => {
         const filtered = recent.filter(pid => pid !== id);
         const updated = [id, ...filtered].slice(0, 10);
         localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+      } else {
+        // If not found in Supabase, try static products
+        import('../data/products').then(module => {
+          const staticProduct = module.getProductById(id);
+          if (staticProduct) {
+            setProduct(staticProduct);
+            
+            // Save to recently viewed
+            const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+            const filtered = recent.filter(pid => pid !== id);
+            const updated = [id, ...filtered].slice(0, 10);
+            localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+          }
+        });
       }
     } catch (error) {
       console.error('Error fetching product:', error);
+      // Fallback to static products
+      import('../data/products').then(module => {
+        const staticProduct = module.getProductById(id);
+        if (staticProduct) {
+          setProduct(staticProduct);
+        }
+      });
     } finally {
       setLoading(false);
     }
@@ -89,7 +109,7 @@ const ProductDetailPage = () => {
 
       if (error) throw error;
 
-      const transformedProducts = data.map(product => ({
+      const supabaseProducts = (data || []).map(product => ({
         id: product.id,
         name: product.name,
         price: product.price,
@@ -101,9 +121,19 @@ const ProductDetailPage = () => {
         inStock: true
       }));
 
-      setRelatedProducts(transformedProducts);
+      // Import static products and combine
+      import('../data/products').then(module => {
+        const staticProducts = (module.products || []).filter(p => p.id !== id);
+        const allProducts = [...supabaseProducts, ...staticProducts].slice(0, 6);
+        setRelatedProducts(allProducts);
+      });
     } catch (error) {
       console.error('Error fetching related products:', error);
+      // Fallback to static products
+      import('../data/products').then(module => {
+        const staticProducts = (module.products || []).filter(p => p.id !== id).slice(0, 6);
+        setRelatedProducts(staticProducts);
+      });
     }
   };
   

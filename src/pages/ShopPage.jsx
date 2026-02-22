@@ -32,8 +32,8 @@ const ShopPage = () => {
 
       if (error) throw error;
 
-      // Transform data to match the expected format
-      const transformedProducts = data.map(product => ({
+      // Transform Supabase data to match expected format
+      const supabaseProducts = (data || []).map(product => ({
         id: product.id,
         name: product.name,
         price: product.price,
@@ -41,13 +41,23 @@ const ShopPage = () => {
         category: product.categories?.name || 'Uncategorized',
         images: product.images && product.images.length > 0 
           ? product.images 
-          : ['/img/placeholder.jpg'], // Fallback image
+          : ['/img/placeholder.jpg'],
         inStock: true
       }));
 
-      setProducts(transformedProducts);
+      // Import static products
+      import('../data/products').then(module => {
+        const staticProducts = module.products || [];
+        // Combine static products with Supabase products
+        const allProducts = [...supabaseProducts, ...staticProducts];
+        setProducts(allProducts);
+      });
     } catch (error) {
       console.error('Error fetching products:', error);
+      // If Supabase fails, fallback to static products only
+      import('../data/products').then(module => {
+        setProducts(module.products || []);
+      });
     } finally {
       setLoading(false);
     }
